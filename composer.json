@@ -1,6 +1,6 @@
 {
-  "name": "phpacadem/web-sceleton",
-  "description": "Psr framework sceleton",
+  "name": "phpacadem/framework",
+  "description": "Psr framework",
   "type": "library",
   "keywords": ["framework","psr","router","SOLID", "component"],
   "license": "MIT",
