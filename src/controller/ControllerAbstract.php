@@ -3,8 +3,8 @@
 namespace PhpAcadem\framework\controller;
 
 
-use League\Plates\Engine;
 use PhpAcadem\framework\container\ContainerAwareTrait;
+use PhpAcadem\framework\view\ViewEngineInterface;
 
 
 class ControllerAbstract
@@ -12,7 +12,7 @@ class ControllerAbstract
     use ContainerAwareTrait;
 
     /**
-     * @var Engine
+     * @var ViewEngineInterface
      */
     protected $view;
 
@@ -22,13 +22,13 @@ class ControllerAbstract
      */
     public function init()
     {
-        $this->view = $this->container->get(Engine::class);
+        $this->view = $this->container->get(ViewEngineInterface::class);
     }
 
     /**
-     * @param Engine $view
+     * @param ViewEngineInterface $view
      */
-    public function setView(Engine $view): void
+    public function setView(ViewEngineInterface $view): void
     {
         $this->view = $view;
     }

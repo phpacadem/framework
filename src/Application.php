@@ -4,25 +4,25 @@ namespace PhpAcadem\framework;
 
 
 use PhpAcadem\framework\route\Router;
-use League\Plates\Engine;
+use PhpAcadem\framework\view\ViewEngineInterface;
 
 class Application extends Router
 {
-    /** @var Engine */
+    /** @var ViewEngineInterface */
     protected $view;
 
     /**
-     * @return Engine
+     * @return ViewEngineInterface
      */
-    public function getView(): Engine
+    public function getView(): ViewEngineInterface
     {
         return $this->view;
     }
 
     /**
-     * @param Engine $view
+     * @param ViewEngineInterface $view
      */
-    public function setView(Engine $view): void
+    public function setView(ViewEngineInterface $view): void
     {
         $this->view = $view;
     }
