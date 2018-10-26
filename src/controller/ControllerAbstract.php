@@ -3,8 +3,8 @@
 namespace PhpAcadem\framework\controller;
 
 
-use PhpAcadem\framework\container\ContainerAwareTrait;
 use League\Plates\Engine;
+use PhpAcadem\framework\container\ContainerAwareTrait;
 
 
 class ControllerAbstract
@@ -34,8 +34,8 @@ class ControllerAbstract
     }
 
 
-    protected function render($templateName, $data = [])
+    protected function render($templateName, $data = [], $status = 200, $headers = [])
     {
-        return new \Zend\Diactoros\Response\HtmlResponse($this->view->render($templateName, $data));
+        return new \Zend\Diactoros\Response\HtmlResponse($this->view->render($templateName, $data), $status, $headers);
     }
 }
