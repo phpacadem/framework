@@ -10,6 +10,12 @@ $sources = [
 
 $services = [
 
+    \PhpAcadem\framework\ApplicationInterface::class => DI\factory(function (
+        \PhpAcadem\framework\Application $application
+    ) {
+        return $application;
+    }),
+
     // default definition of Application. Possible to redefine in your app
     \PhpAcadem\framework\Application::class => DI\factory(function (
         ServerRequestInterface $request,
@@ -27,7 +33,6 @@ $services = [
         $app->middleware($errorHandlerMiddleware); //default handler(PhpAcadem\framework\middleware\ErrorHandlerMiddleware) will process errors if not specified
 
         return $app;
-
     }),
 
 

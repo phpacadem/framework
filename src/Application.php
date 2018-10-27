@@ -8,7 +8,7 @@ use PhpAcadem\framework\view\ViewEngineInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class Application extends Router
+class Application extends Router implements ApplicationInterface
 {
     /** @var  ServerRequestInterface */
     protected $request;
