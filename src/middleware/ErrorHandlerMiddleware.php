@@ -65,7 +65,9 @@ class ErrorHandlerMiddleware implements ErrorHandlerMiddlewareInterface
 
     /**
      * ErrorHandlerMiddleware constructor.
+     * @param string $errorHandler
      * @param bool $debug
+     * @param Run|null $whoops
      */
     public function __construct($errorHandler = '', bool $debug = false, Run $whoops = null)
     {
@@ -74,6 +76,12 @@ class ErrorHandlerMiddleware implements ErrorHandlerMiddlewareInterface
         $this->errorHandler = $errorHandler ?: self::DEFAULT_ERROR_HANDLER;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
+     * @throws \Throwable
+     */
     protected function handle(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if ($this->exception instanceof \Throwable) {
@@ -82,6 +90,11 @@ class ErrorHandlerMiddleware implements ErrorHandlerMiddlewareInterface
         return $handler->handle($request);
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
+     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
 

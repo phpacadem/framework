@@ -34,6 +34,13 @@ $services = [
         return $strategy;
     }),
 
+    \PhpAcadem\framework\middleware\ErrorHandlerMiddlewareInterface::class => DI\factory(function (\Psr\Container\ContainerInterface $c) {
+
+        $errorHandler = $c->has('errorHandler') ? $c->get('errorHandler') : '';
+        $debug = $c->has('debug') ? $c->has('debug') : false;
+        return new \PhpAcadem\framework\middleware\ErrorHandlerMiddleware($errorHandler, $debug);
+    }),
+
     \PhpAcadem\framework\view\ViewEngineInterface::class => DI\factory(function (\Psr\Container\ContainerInterface $c) {
         $view = new \PhpAcadem\framework\view\ViewEngine($c->get('templatePath'), 'phtml');
         return $view;
