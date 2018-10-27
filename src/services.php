@@ -10,13 +10,16 @@ $sources = [
 
 $services = [
 
-    // default definition of Application. Necessary to define in your app
+    // default definition of Application. Possible to redefine in your app
     \PhpAcadem\framework\Application::class => DI\factory(function (
+        ServerRequestInterface $request,
         \PhpAcadem\framework\view\ViewEngineInterface $view,
         \League\Route\Strategy\StrategyInterface $strategy,
         \PhpAcadem\framework\middleware\ErrorHandlerMiddlewareInterface $errorHandlerMiddleware
     ) {
         $app = new PhpAcadem\framework\Application();
+
+        $app->setRequest($request);
 
         $app->setStrategy($strategy);
         $app->setView($view);
@@ -25,7 +28,7 @@ $services = [
 
         return $app;
 
-    })->parameter('debug', DI\get('debug')),
+    }),
 
 
     \League\Route\Strategy\StrategyInterface::class => DI\factory(function (\Psr\Container\ContainerInterface $c) {
