@@ -35,6 +35,25 @@ $services = [
         return $app;
     }),
 
+    \PhpAcadem\framework\console\ApplicationInterface::class => DI\factory(function (
+        \PhpAcadem\framework\console\Application $application
+    ) {
+        return $application;
+    }),
+
+    // default definition of Application. Possible to redefine in your app
+    \PhpAcadem\framework\console\Application::class => DI\factory(function (
+        \Psr\Container\ContainerInterface $c
+    ) {
+        $cli = new \PhpAcadem\framework\console\Application('Console App');
+
+        $commands = $c->get('commands');
+        $cli->addCommands($commands);
+
+
+        return $cli;
+    }),
+
 
     \League\Route\Strategy\StrategyInterface::class => DI\factory(function (\Psr\Container\ContainerInterface $c) {
         $strategy = new \PhpAcadem\framework\route\strategy\ApplicationStrategy();
