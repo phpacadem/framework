@@ -22,4 +22,14 @@ class Template extends \League\Plates\Template\Template
     {
         return $this->url->get($routeName, $params);
     }
+
+    public function loadExtension($name)
+    {
+        try {
+            $extension = $this->$name();
+        } catch (\Exception $e) {
+            $extension = null;
+        }
+        return $extension;
+    }
 }
