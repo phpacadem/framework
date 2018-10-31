@@ -138,7 +138,7 @@ class ErrorHandlerMiddleware implements ErrorHandlerMiddlewareInterface
     protected function forward($e, ServerRequestInterface $request, RequestHandlerInterface $handler)
     {
         if ($handler instanceof Dispatcher) {
-            return (new Dispatcher([[], []]))
+            return (new \PhpAcadem\framework\route\Dispatcher([[], []]))
                 ->middleware((new Route('', '', $this->errorHandler))->setStrategy($handler->getStrategy()))
                 ->setStrategy($handler->getStrategy())
                 ->handle($request->withAttribute('exception', $e));
