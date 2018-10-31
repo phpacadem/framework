@@ -4,6 +4,7 @@ namespace PhpAcadem\framework\controller;
 
 
 use PhpAcadem\framework\container\ContainerAwareTrait;
+use PhpAcadem\framework\route\UrlInterface;
 use PhpAcadem\framework\view\ViewEngineInterface;
 
 
@@ -16,6 +17,9 @@ class ControllerAbstract
      */
     protected $view;
 
+    /** @var UrlInterface */
+    protected $url;
+
 
     /**
      * ControllerAbstract constructor.
@@ -23,6 +27,7 @@ class ControllerAbstract
     public function init()
     {
         $this->view = $this->container->get(ViewEngineInterface::class);
+        $this->url = $this->container->get(UrlInterface::class);
     }
 
     /**

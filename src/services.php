@@ -20,20 +20,24 @@ $services = [
     \PhpAcadem\framework\Application::class => DI\factory(function (
         ServerRequestInterface $request,
         \PhpAcadem\framework\view\ViewEngineInterface $view,
-        \League\Route\Strategy\StrategyInterface $strategy,
+        \PhpAcadem\framework\route\Router $router,
         \PhpAcadem\framework\middleware\ErrorHandlerMiddlewareInterface $errorHandlerMiddleware
     ) {
-        $app = new PhpAcadem\framework\Application();
-
-        $app->setRequest($request);
-
-        $app->setStrategy($strategy);
-        $app->setView($view);
+        $app = new PhpAcadem\framework\Application($request, $view, $router);
 
         $app->middleware($errorHandlerMiddleware); //default handler(PhpAcadem\framework\middleware\ErrorHandlerMiddleware) will process errors if not specified
 
         return $app;
     }),
+
+    \PhpAcadem\framework\route\Router::class => DI\factory(function (
+        \League\Route\Strategy\StrategyInterface $strategy
+    ) {
+        $router = new \PhpAcadem\framework\route\Router();
+        $router->setStrategy($strategy);
+        return $router;
+    }),
+
 
     \PhpAcadem\framework\console\ApplicationInterface::class => DI\factory(function (
         \PhpAcadem\framework\console\Application $application
@@ -68,9 +72,15 @@ $services = [
         return new \PhpAcadem\framework\middleware\ErrorHandlerMiddleware($errorHandler, $debug);
     }),
 
-    \PhpAcadem\framework\view\ViewEngineInterface::class => DI\factory(function (\Psr\Container\ContainerInterface $c) {
+    \PhpAcadem\framework\view\ViewEngineInterface::class => DI\factory(function (\Psr\Container\ContainerInterface $c, \PhpAcadem\framework\route\UrlInterface $url) {
         $view = new \PhpAcadem\framework\view\ViewEngine($c->get('templatePath'), 'phtml');
+        $view->setUrl($url);
         return $view;
+    }),
+
+    \PhpAcadem\framework\route\UrlInterface::class => DI\factory(function (\PhpAcadem\framework\route\Router $router, \FastRoute\RouteParser\Std $parser) {
+        $url = new \PhpAcadem\framework\route\Url($router, $parser);
+        return $url;
     }),
 
 
