@@ -24,9 +24,9 @@ class Route extends \League\Route\Route
             $callable[0]->setContainer($container);
         }
 
-        if (method_exists($callable[0], 'init')) {
-            $callable[0]->init();
-        }
+//        if (method_exists($callable[0], 'init')) {
+//            $callable[0]->init();
+//        }
 
         return $callable;
     }
